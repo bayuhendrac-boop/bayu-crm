@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAYU — Sales & Digital Intelligence</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-transition { transition: all 0.3s ease; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased h-screen flex overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0 z-20 sidebar-transition">
+        <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">B</div>
+                <div>
+                    <h1 class="font-bold text-white text-base tracking-wide leading-tight">BAYU</h1>
+                    <span class="text-[10px] text-brand-400 font-semibold tracking-wider uppercase">Sales & Digital Intel</span>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+            <a href="#" onclick="switchTab('dashboard')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white" data-tab="dashboard">
+                <i class="fa-solid fa-chart-pie w-6 text-center mr-2"></i> Dashboard
+            </a>
+            <a href="#" onclick="switchTab('prospects')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="prospects">
+                <i class="fa-solid fa-binoculars w-6 text-center mr-2"></i> Prospects
+            </a>
+            <a href="#" onclick="switchTab('leads')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="leads">
+                <i class="fa-solid fa-filter w-6 text-center mr-2"></i> Leads
+            </a>
+            <a href="#" onclick="switchTab('accounts')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="accounts">
+                <i class="fa-solid fa-building w-6 text-center mr-2"></i> Accounts & PIC
+            </a>
+            <a href="#" onclick="switchTab('opportunities')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="opportunities">
+                <i class="fa-solid fa-gem w-6 text-center mr-2"></i> Opportunities
+            </a>
+            <a href="#" onclick="switchTab('pipeline')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="pipeline">
+                <i class="fa-solid fa-bars-progress w-6 text-center mr-2"></i> Pipeline
+            </a>
+            <a href="#" onclick="switchTab('proposals')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="proposals">
+                <i class="fa-solid fa-file-contract w-6 text-center mr-2"></i> Proposals
+            </a>
+            <a href="#" onclick="switchTab('activities')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="activities">
+                <i class="fa-solid fa-calendar-check w-6 text-center mr-2"></i> Activities
+            </a>
+            <a href="#" onclick="switchTab('exposure')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="exposure">
+                <i class="fa-solid fa-chart-line w-6 text-center mr-2"></i> Exposure Intelligence
+            </a>
+            <a href="#" onclick="switchTab('digital')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="digital">
+                <i class="fa-solid fa-microchip w-6 text-center mr-2"></i> Digital Intelligence
+            </a>
+            <a href="#" onclick="switchTab('audittrail')" class="nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white" data-tab="audittrail">
+                <i class="fa-solid fa-clock-rotate-left w-6 text-center mr-2"></i> Audit Trail
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
+            <span>v1.0.0 Enterprise</span>
+            <button onclick="resetDemoData()" class="hover:text-slate-300 underline text-[11px]" title="Bersihkan Database">Clear Data</button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- TOP HEADER -->
+        <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleSidebar()" class="text-slate-500 hover:text-slate-700 focus:outline-none"><i class="fa-solid fa-bars text-lg"></i></button>
+                <h2 id="page-title" class="text-lg font-bold text-slate-800">Dashboard Overview</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    <span class="w-2 h-2 mr-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Live System Active
+                </span>
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">BY</div>
+            </div>
+        </header>
+
+        <!-- VIEW CONTAINER -->
+        <main id="main-content" class="flex-1 overflow-y-auto p-6 bg-slate-50">
+            <!-- Content injected dynamically -->
+        </main>
+    </div>
+
+    <!-- GLOBAL MODAL CONTAINER -->
+    <div id="global-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div id="modal-box" class="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden transform transition-all my-8">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+                <h3 id="modal-title" class="font-bold text-slate-800 text-base">Modal Title</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 focus:outline-none"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <!-- Modal Body -->
+            <div id="modal-body" class="p-6 max-h-[75vh] overflow-y-auto">
+                <!-- Form injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION LOGIC SCRIPT -->
+    <script>
+        // --- STORAGE & INITIALIZATION ---
+        const DB_KEY = 'bayu_crm_db_clean_v1';
+
+        const emptyData = {
+            prospects: [],
+            leads: [],
+            accounts: [],
+            pics: [],
+            opportunities: [],
+            proposals: [],
+            activities: [],
+            auditTrail: []
+        };
+
+        function getDB() {
+            const data = localStorage.getItem(DB_KEY);
+            if (!data) {
+                localStorage.setItem(DB_KEY, JSON.stringify(emptyData));
+                return emptyData;
+            }
+            try { return JSON.parse(data); } catch(e) { return emptyData; }
+        }
+
+        function saveDB(db) {
+            localStorage.setItem(DB_KEY, JSON.stringify(db));
+        }
+
+        function logAudit(action, module, description) {
+            const db = getDB();
+            const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            db.auditTrail.unshift({
+                id: 'aud_' + Math.random().toString(36).substr(2, 9),
+                timestamp: now,
+                user: 'System User',
+                action: action,
+                module: module,
+                description: description
+            });
+            saveDB(db);
+        }
+
+        function resetDemoData() {
+            if (confirm('Bersihkan seluruh database?')) {
+                localStorage.setItem(DB_KEY, JSON.stringify(emptyData));
+                location.reload();
+            }
+        }
+
+        // --- NAVIGATION & UI ROUTING ---
+        let currentTab = 'dashboard';
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.nav-link').forEach(el => {
+                if (el.getAttribute('data-tab') === tabId) {
+                    el.className = 'nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors bg-brand-600 text-white';
+                } else {
+                    el.className = 'nav-link flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white';
+                }
+            });
+            
+            const titles = {
+                dashboard: 'Dashboard Overview',
+                prospects: 'Prospects Management',
+                leads: 'Leads Management',
+                accounts: 'Accounts & PIC / Contacts',
+                opportunities: 'Opportunities Management',
+                pipeline: 'Sales & Exposure Pipeline',
+                proposals: 'Proposals Management',
+                activities: 'Activities & Tasks',
+                exposure: 'Exposure Intelligence',
+                digital: 'Digital Intelligence Matrix',
+                audittrail: 'System Audit Trail'
+            };
+            document.getElementById('page-title').innerText = titles[tabId] || 'BAYU System';
+            renderContent();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+
+        function renderContent() {
+            const main = document.getElementById('main-content');
+            switch(currentTab) {
+                case 'dashboard': main.innerHTML = renderDashboard(); break;
+                case 'prospects': main.innerHTML = renderProspects(); break;
+                case 'leads': main.innerHTML = renderLeads(); break;
+                case 'accounts': main.innerHTML = renderAccounts(); break;
+                case 'opportunities': main.innerHTML = renderOpportunities(); break;
+                case 'pipeline': main.innerHTML = renderPipeline(); break;
+                case 'proposals': main.innerHTML = renderProposals(); break;
+                case 'activities': main.innerHTML = renderActivities(); break;
+                case 'exposure': main.innerHTML = renderExposure(); break;
+                case 'digital': main.innerHTML = renderDigital(); break;
+                case 'audittrail': main.innerHTML = renderAuditTrail(); break;
+                default: main.innerHTML = '<div class="text-slate-500">Modul tidak ditemukan.</div>';
+            }
+        }
+
+        // --- INTELLIGENCE & CALCULATION ENGINE ---
+        function calculateOppMetrics(opp) {
+            const cv = parseFloat(opp.commercialValue) || 0;
+            const ar = parseFloat(opp.audienceReach) || 0;
+            const be = parseFloat(opp.brandExposure) || 0;
+            const rv = parseFloat(opp.relationshipValue) || 0;
+            const sv = parseFloat(opp.strategicValue) || 0;
+            const prob = parseFloat(opp.probability) || 0;
+
+            const weightedValue = cv * (prob / 100);
+            
+            let exposureScore = Math.round((be * 0.4) + (ar > 0 ? 30 : 0) + (rv * 0.3));
+            if (exposureScore > 100) exposureScore = 100;
+
+            let signals = [];
+            let health = 'Healthy';
+            let healthColor = 'emerald';
+
+            if (!opp.decisionMaker) { signals.push({ type: 'warning', text: 'Decision Maker belum diketahui' }); }
+            if (!opp.picId) { signals.push({ type: 'danger', text: 'PIC tidak tersedia' }); }
+            if (opp.relationshipStrength === 'Low') { signals.push({ type: 'danger', text: 'Relationship lemah' }); }
+            if (opp.competitivePosition === 'Lagging') { signals.push({ type: 'warning', text: 'Competitor position tertinggal' }); }
+            if (!opp.budgetConfirmation) { signals.push({ type: 'warning', text: 'Budget belum confirmed' }); }
+            if (opp.status === 'Stalled') { signals.push({ type: 'danger', text: 'Opportunity stalled' }); }
+            
+            if (exposureScore > 80 || be > 75) { signals.push({ type: 'success', text: 'Exposure tinggi' }); }
+
+            if (signals.filter(s => s.type === 'danger').length > 0) {
+                health = 'Critical';
+                healthColor = 'rose';
+            } else if (signals.length >= 2) {
+                health = 'At Risk';
+                healthColor = 'amber';
+            } else {
+                health = 'Healthy';
+                healthColor = 'emerald';
+                signals.push({ type: 'success', text: 'Opportunity sehat' });
+            }
+
+            let nba = opp.nextAction || 'Lakukan follow-up rutin dengan PIC';
+            if (!opp.decisionMaker) nba = 'Jadwalkan meeting dengan C-Level / Decision Maker';
+            else if (!opp.budgetConfirmation) nba = 'Lakukan konfirmasi anggaran/budget tahunan client';
+            else if (opp.stage === 'Proposal') nba = 'Kirimkan revisi proposal dan jadwalkan presentasi langsung';
+
+            return { weightedValue, exposureScore, health, healthColor, signals, nba };
+        }
+
+        // --- DASHBOARD MODULE ---
+        function renderDashboard() {
+            const db = getDB();
+            const totalOpp = db.opportunities.length;
+            let totalVal = 0;
+            let weightedVal = 0;
+            let totalExposure = 0;
+            let healthyCount = 0;
+
+            db.opportunities.forEach(o => {
+                const m = calculateOppMetrics(o);
+                totalVal += parseFloat(o.commercialValue) || 0;
+                weightedVal += m.weightedValue;
+                totalExposure += m.exposureScore;
+                if (m.health === 'Healthy') healthyCount++;
+            });
+
+            const avgExposure = totalOpp > 0 ? Math.round(totalExposure / totalOpp) : 0;
+
+            return `
+                <div class="space-y-6">
+                    <!-- KPI Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Opportunities</div>
+                            <div class="text-2xl font-bold text-slate-800 mt-1">${totalOpp}</div>
+                            <div class="text-xs text-emerald-600 mt-2 flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1"></i> ${db.accounts.length} Active Accounts</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Pipeline Value</div>
+                            <div class="text-2xl font-bold text-brand-600 mt-1">Rp ${totalVal.toLocaleString('id-ID')}</div>
+                            <div class="text-xs text-slate-500 mt-2">Weighted: Rp ${Math.round(weightedVal).toLocaleString('id-ID')}</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Avg Exposure Score</div>
+                            <div class="text-2xl font-bold text-indigo-600 mt-1">${avgExposure} / 100</div>
+                            <div class="text-xs text-indigo-500 mt-2">Digital & Brand Reach Index</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Opportunity Health</div>
+                            <div class="text-2xl font-bold text-emerald-600 mt-1">${healthyCount} / ${totalOpp} Healthy</div>
+                            <div class="text-xs text-slate-500 mt-2">Realtime Signal Engine</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Action / Intelligence Banner -->
+                    <div class="bg-gradient-to-r from-brand-900 to-indigo-900 rounded-xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between">
+                        <div class="space-y-2 mb-4 md:mb-0">
+                            <span class="bg-brand-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest">Digital Intelligence Active</span>
+                            <h3 class="text-xl font-bold">BAYU - Sales & Digital Intelligence Engine</h3>
+                            <p class="text-slate-300 text-sm max-w-2xl">Mulai masukkan data prospects, accounts, PIC, dan opportunity Anda untuk melihat analisis exposure dan pipeline secara otomatis.</p>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button onclick="switchTab('opportunities')" class="bg-white text-brand-900 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-50 transition shadow">Kelola Opportunity</button>
+                            <button onclick="switchTab('exposure')" class="bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-700 transition shadow">Exposure Intel</button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities & Opp Summary Table -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+                            <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center"><i class="fa-solid fa-gem text-brand-600 mr-2"></i> Top Opportunities</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                                        <tr>
+                                            <th class="p-3">Opportunity</th>
+                                            <th class="p-3">Type</th>
+                                            <th class="p-3">Value</th>
+                                            <th class="p-3">Health</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        ${db.opportunities.length === 0 ? `<tr><td colspan="4" class="p-4 text-center text-slate-400 text-xs">Belum ada data opportunity.</td></tr>` : db.opportunities.map(o => {
+                                            const m = calculateOppMetrics(o);
+                                            return `
+                                                <tr class="hover:bg-slate-50">
+                                                    <td class="p-3 font-medium text-slate-800">${o.name}</td>
+                                                    <td class="p-3"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-700">${o.type}</span></td>
+                                                    <td class="p-3 text-slate-600">Rp ${(parseFloat(o.commercialValue)||0).toLocaleString('id-ID')}</td>
+                                                    <td class="p-3"><span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-${m.healthColor}-100 text-${m.healthColor}-800">${m.health}</span></td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+                            <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center"><i class="fa-solid fa-clock-rotate-left text-brand-600 mr-2"></i> Recent Audit Trail</h3>
+                            <div class="space-y-3">
+                                ${db.auditTrail.length === 0 ? `<div class="text-slate-400 text-xs text-center py-4">Belum ada aktivitas tercatat.</div>` : db.auditTrail.slice(0, 5).map(a => `
+                                    <div class="text-xs border-b border-slate-100 pb-2 flex items-start justify-between">
+                                        <div>
+                                            <span class="font-bold text-slate-700">[${a.module}]</span> ${a.description}
+                                            <div class="text-[10px] text-slate-400 mt-0.5">${a.timestamp} • By ${a.user}</div>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600">${a.action}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- PROSPECTS MODULE ---
+        function renderProspects() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-lg">Daftar Prospects</h3>
+                        <button onclick="openProspectModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center"><i class="fa-solid fa-plus mr-2"></i> Tambah Prospect</button>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Prospect Name</th>
+                                    <th class="p-4">Industry</th>
+                                    <th class="p-4">Contact Person</th>
+                                    <th class="p-4">Email / Phone</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.prospects.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-sm">Belum ada data prospect. Silakan tambahkan baru.</td></tr>` : db.prospects.map(p => `
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 font-semibold text-slate-800">${p.name}</td>
+                                        <td class="p-4 text-slate-600">${p.industry}</td>
+                                        <td class="p-4 text-slate-600">${p.contactPerson}</td>
+                                        <td class="p-4 text-slate-600">${p.email} <br><span class="text-xs text-slate-400">${p.phone}</span></td>
+                                        <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700">${p.status}</span></td>
+                                        <td class="p-4 text-right space-x-2">
+                                            <button onclick="editProspect('${p.id}')" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                            <button onclick="deleteProspect('${p.id}')" class="text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openProspectModal(id = null) {
+            const db = getDB();
+            let p = { name: '', industry: '', contactPerson: '', email: '', phone: '', status: 'New', notes: '' };
+            if (id) p = db.prospects.find(x => x.id === id) || p;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit Prospect' : 'Tambah Prospect Baru';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="saveProspect(event, '${id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Company / Prospect Name</label>
+                        <input type="text" id="p_name" value="${p.name}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Industry</label>
+                            <input type="text" id="p_industry" value="${p.industry}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+                            <select id="p_status" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="New" ${p.status==='New'?'selected':''}>New</option>
+                                <option value="Contacted" ${p.status==='Contacted'?'selected':''}>Contacted</option>
+                                <option value="Qualified" ${p.status==='Qualified'?'selected':''}>Qualified</option>
+                                <option value="Unqualified" ${p.status==='Unqualified'?'selected':''}>Unqualified</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Contact Person</label>
+                            <input type="text" id="p_cp" value="${p.contactPerson}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Email</label>
+                            <input type="email" id="p_email" value="${p.email}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Phone</label>
+                            <input type="text" id="p_phone" value="${p.phone}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Notes</label>
+                        <textarea id="p_notes" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">${p.notes}</textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan Prospect</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+        }
+
+        function saveProspect(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'p_' + Math.random().toString(36).substr(2, 9),
+                name: document.getElementById('p_name').value,
+                industry: document.getElementById('p_industry').value,
+                contactPerson: document.getElementById('p_cp').value,
+                email: document.getElementById('p_email').value,
+                phone: document.getElementById('p_phone').value,
+                status: document.getElementById('p_status').value,
+                notes: document.getElementById('p_notes').value
+            };
+            if(id) {
+                const idx = db.prospects.findIndex(x => x.id === id);
+                if(idx !== -1) db.prospects[idx] = data;
+                logAudit('UPDATE', 'Prospects', `Memperbarui prospect: ${data.name}`);
+            } else {
+                db.prospects.unshift(data);
+                logAudit('CREATE', 'Prospects', `Menambahkan prospect baru: ${data.name}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editProspect(id) { openProspectModal(id); }
+        function deleteProspect(id) {
+            if(confirm('Hapus prospect ini?')) {
+                const db = getDB();
+                db.prospects = db.prospects.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'Prospects', `Menghapus prospect ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        // --- LEADS MODULE ---
+        function renderLeads() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-lg">Daftar Leads</h3>
+                        <button onclick="openLeadModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center"><i class="fa-solid fa-plus mr-2"></i> Tambah Lead</button>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Lead Name</th>
+                                    <th class="p-4">Source</th>
+                                    <th class="p-4">Estimated Value</th>
+                                    <th class="p-4">PIC</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.leads.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-sm">Belum ada data lead. Silakan tambahkan baru.</td></tr>` : db.leads.map(l => `
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 font-semibold text-slate-800">${l.name}</td>
+                                        <td class="p-4"><span class="px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-700">${l.source}</span></td>
+                                        <td class="p-4 text-slate-600">Rp ${(parseFloat(l.value)||0).toLocaleString('id-ID')}</td>
+                                        <td class="p-4 text-slate-600">${l.pic}</td>
+                                        <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">${l.status}</span></td>
+                                        <td class="p-4 text-right space-x-2">
+                                            <button onclick="editLead('${l.id}')" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                            <button onclick="deleteLead('${l.id}')" class="text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openLeadModal(id = null) {
+            const db = getDB();
+            let l = { name: '', source: 'Inbound Web', value: 0, pic: '', status: 'New' };
+            if (id) l = db.leads.find(x => x.id === id) || l;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit Lead' : 'Tambah Lead Baru';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="saveLead(event, '${id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lead Name</label>
+                        <input type="text" id="l_name" value="${l.name}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Source</label>
+                            <select id="l_source" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="Inbound Web" ${l.source==='Inbound Web'?'selected':''}>Inbound Web</option>
+                                <option value="Referral" ${l.source==='Referral'?'selected':''}>Referral</option>
+                                <option value="Cold Outreach" ${l.source==='Cold Outreach'?'selected':''}>Cold Outreach</option>
+                                <option value="Event" ${l.source==='Event'?'selected':''}>Event</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+                            <select id="l_status" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="New" ${l.status==='New'?'selected':''}>New</option>
+                                <option value="Qualified" ${l.status==='Qualified'?'selected':''}>Qualified</option>
+                                <option value="Unqualified" ${l.status==='Unqualified'?'selected':''}>Unqualified</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Estimated Value (Rp)</label>
+                            <input type="number" id="l_value" value="${l.value}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">PIC Assigned</label>
+                            <input type="text" id="l_pic" value="${l.pic}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan Lead</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+        }
+
+        function saveLead(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'l_' + Math.random().toString(36).substr(2, 9),
+                name: document.getElementById('l_name').value,
+                source: document.getElementById('l_source').value,
+                value: parseFloat(document.getElementById('l_value').value) || 0,
+                pic: document.getElementById('l_pic').value,
+                status: document.getElementById('l_status').value
+            };
+            if(id) {
+                const idx = db.leads.findIndex(x => x.id === id);
+                if(idx !== -1) db.leads[idx] = data;
+                logAudit('UPDATE', 'Leads', `Memperbarui lead: ${data.name}`);
+            } else {
+                db.leads.unshift(data);
+                logAudit('CREATE', 'Leads', `Menambahkan lead baru: ${data.name}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editLead(id) { openLeadModal(id); }
+        function deleteLead(id) {
+            if(confirm('Hapus lead ini?')) {
+                const db = getDB();
+                db.leads = db.leads.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'Leads', `Menghapus lead ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        // --- ACCOUNTS & PIC MODULE ---
+        function renderAccounts() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-lg">Accounts & PIC / Contacts</h3>
+                        <div class="space-x-2">
+                            <button onclick="openAccountModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"><i class="fa-solid fa-building mr-1"></i> Tambah Account</button>
+                            <button onclick="openPicModal()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"><i class="fa-solid fa-user-plus mr-1"></i> Tambah PIC</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 space-y-4">
+                            <h4 class="font-bold text-slate-700 text-sm uppercase tracking-wider">Daftar Accounts</h4>
+                            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                        <tr>
+                                            <th class="p-3">Account Name</th>
+                                            <th class="p-3">Industry</th>
+                                            <th class="p-3">Website</th>
+                                            <th class="p-3 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        ${db.accounts.length === 0 ? `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-sm">Belum ada account. Silakan tambahkan baru.</td></tr>` : db.accounts.map(acc => `
+                                            <tr class="hover:bg-slate-50">
+                                                <td class="p-3 font-semibold text-slate-800">${acc.name}</td>
+                                                <td class="p-3 text-slate-600">${acc.industry}</td>
+                                                <td class="p-3 text-brand-600"><a href="https://${acc.website}" target="_blank">${acc.website}</a></td>
+                                                <td class="p-3 text-right space-x-2">
+                                                    <button onclick="editAccount('${acc.id}')" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                                    <button onclick="deleteAccount('${acc.id}')" class="text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-slate-700 text-sm uppercase tracking-wider">Daftar PIC / Contacts</h4>
+                            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden p-4 space-y-4 max-h-[600px] overflow-y-auto">
+                                ${db.pics.length === 0 ? `<div class="text-slate-400 text-xs text-center py-8">Belum ada PIC tercatat.</div>` : db.pics.map(pic => {
+                                    const acc = db.accounts.find(a => a.id === pic.accountId);
+                                    return `
+                                        <div class="border border-slate-200 rounded-lg p-3 bg-slate-50 space-y-1">
+                                            <div class="flex items-center justify-between">
+                                                <span class="font-bold text-slate-800 text-sm">${pic.name}</span>
+                                                <div class="space-x-1">
+                                                    <button onclick="editPic('${pic.id}')" class="text-xs text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                                    <button onclick="deletePic('${pic.id}')" class="text-xs text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="text-xs text-indigo-600 font-medium">${pic.title}</div>
+                                            <div class="text-xs text-slate-500"><i class="fa-solid fa-building mr-1"></i> ${acc ? acc.name : 'Unknown Account'}</div>
+                                            <div class="text-xs text-slate-500 pt-1 border-t border-slate-200 flex justify-between">
+                                                <span>${pic.email}</span>
+                                                <span>${pic.phone}</span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openAccountModal(id = null) {
+            const db = getDB();
+            let acc = { name: '', industry: '', website: '', address: '' };
+            if (id) acc = db.accounts.find(x => x.id === id) || acc;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit Account' : 'Tambah Account Baru';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="saveAccount(event, '${id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Account Name</label>
+                        <input type="text" id="acc_name" value="${acc.name}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Industry</label>
+                            <input type="text" id="acc_industry" value="${acc.industry}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Website</label>
+                            <input type="text" id="acc_website" value="${acc.website}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Address</label>
+                        <textarea id="acc_address" rows="2" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">${acc.address}</textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan Account</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+        }
+
+        function saveAccount(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'acc_' + Math.random().toString(36).substr(2, 9),
+                name: document.getElementById('acc_name').value,
+                industry: document.getElementById('acc_industry').value,
+                website: document.getElementById('acc_website').value,
+                address: document.getElementById('acc_address').value
+            };
+            if(id) {
+                const idx = db.accounts.findIndex(x => x.id === id);
+                if(idx !== -1) db.accounts[idx] = data;
+                logAudit('UPDATE', 'Accounts', `Memperbarui account: ${data.name}`);
+            } else {
+                db.accounts.unshift(data);
+                logAudit('CREATE', 'Accounts', `Menambahkan account baru: ${data.name}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editAccount(id) { openAccountModal(id); }
+        function deleteAccount(id) {
+            if(confirm('Hapus account ini?')) {
+                const db = getDB();
+                db.accounts = db.accounts.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'Accounts', `Menghapus account ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        function openPicModal(id = null) {
+            const db = getDB();
+            let pic = { accountId: '', name: '', title: '', email: '', phone: '' };
+            if (id) pic = db.pics.find(x => x.id === id) || pic;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit PIC / Contact' : 'Tambah PIC / Contact Baru';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="savePic(event, '${id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pilih Account</label>
+                        <select id="pic_accId" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                            <option value="">-- Pilih Account --</option>
+                            ${db.accounts.map(a => `<option value="${a.id}" ${pic.accountId===a.id?'selected':''}>${a.name}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama PIC</label>
+                            <input type="text" id="pic_name" value="${pic.name}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Jabatan / Title</label>
+                            <input type="text" id="pic_title" value="${pic.title}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Email</label>
+                            <input type="email" id="pic_email" value="${pic.email}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Phone</label>
+                            <input type="text" id="pic_phone" value="${pic.phone}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan PIC</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+        }
+
+        function savePic(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'pic_' + Math.random().toString(36).substr(2, 9),
+                accountId: document.getElementById('pic_accId').value,
+                name: document.getElementById('pic_name').value,
+                title: document.getElementById('pic_title').value,
+                email: document.getElementById('pic_email').value,
+                phone: document.getElementById('pic_phone').value
+            };
+            if(id) {
+                const idx = db.pics.findIndex(x => x.id === id);
+                if(idx !== -1) db.pics[idx] = data;
+                logAudit('UPDATE', 'PIC', `Memperbarui PIC: ${data.name}`);
+            } else {
+                db.pics.unshift(data);
+                logAudit('CREATE', 'PIC', `Menambahkan PIC baru: ${data.name}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editPic(id) { openPicModal(id); }
+        function deletePic(id) {
+            if(confirm('Hapus PIC ini?')) {
+                const db = getDB();
+                db.pics = db.pics.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'PIC', `Menghapus PIC ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        // --- OPPORTUNITIES MODULE ---
+        function renderOpportunities() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-lg">Opportunities & Intelligence Matrix</h3>
+                        <button onclick="openOpportunityModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center"><i class="fa-solid fa-plus mr-2"></i> Tambah Opportunity</button>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Opportunity Name</th>
+                                    <th class="p-4">Type</th>
+                                    <th class="p-4">Account / PIC</th>
+                                    <th class="p-4">Value</th>
+                                    <th class="p-4">Stage</th>
+                                    <th class="p-4">Exposure & Health</th>
+                                    <th class="p-4 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.opportunities.length === 0 ? `<tr><td colspan="7" class="p-8 text-center text-slate-400 text-sm">Belum ada data opportunity. Silakan tambahkan baru.</td></tr>` : db.opportunities.map(opp => {
+                                    const acc = db.accounts.find(a => a.id === opp.accountId);
+                                    const pic = db.pics.find(p => p.id === opp.picId);
+                                    const m = calculateOppMetrics(opp);
+                                    return `
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-4">
+                                                <div class="font-semibold text-slate-800">${opp.name}</div>
+                                                <div class="text-xs text-slate-400">Close: ${opp.expectedCloseDate || '-'}</div>
+                                            </td>
+                                            <td class="p-4"><span class="px-2 py-0.5 rounded text-xs bg-indigo-50 text-indigo-700 font-medium">${opp.type}</span></td>
+                                            <td class="p-4 text-xs text-slate-600">
+                                                <div class="font-bold">${acc ? acc.name : '-'}</div>
+                                                <div class="text-slate-400">PIC: ${pic ? pic.name : '<span class="text-rose-500 font-bold">Belum dipilih</span>'}</div>
+                                            </td>
+                                            <td class="p-4 text-slate-600 font-medium">Rp ${(parseFloat(opp.commercialValue)||0).toLocaleString('id-ID')}</td>
+                                            <td class="p-4"><span class="px-2 py-1 rounded text-xs font-semibold bg-slate-100 text-slate-700">${opp.stage}</span></td>
+                                            <td class="p-4">
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-${m.healthColor}-100 text-${m.healthColor}-800">${m.health}</span>
+                                                    <span class="text-xs text-slate-500">Exp: ${m.exposureScore}</span>
+                                                </div>
+                                            </td>
+                                            <td class="p-4 text-right space-x-2">
+                                                <button onclick="editOpportunity('${opp.id}')" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                                <button onclick="deleteOpportunity('${opp.id}')" class="text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateAccountPicsInModal() {
+            const accId = document.getElementById('opp_accountId').value;
+            const db = getDB();
+            const picSelect = document.getElementById('opp_picId');
+            const filteredPics = db.pics.filter(p => p.accountId === accId);
+            picSelect.innerHTML = '<option value="">-- Pilih PIC dari Account Terpilih --</option>' + 
+                filteredPics.map(p => `<option value="${p.id}">${p.name} (${p.title || 'PIC'})</option>`).join('');
+        }
+
+        function openOpportunityModal(id = null) {
+            const db = getDB();
+            let opp = {
+                accountId: '', picId: '', name: '', type: 'Sales', commercialValue: 0,
+                audienceReach: 0, brandExposure: 50, relationshipValue: 50, strategicValue: 50,
+                decisionMaker: false, budgetConfirmation: false, needConfirmation: false, timingConfirmation: false,
+                competitor: '', competitivePosition: 'Neutral', relationshipStrength: 'Medium',
+                expectedCloseDate: '', nextAction: '', probability: 50, stage: 'New Opportunity', status: 'Active'
+            };
+            if (id) opp = db.opportunities.find(x => x.id === id) || opp;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit Opportunity & Intelligence' : 'Tambah Opportunity & Intelligence';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="saveOpportunity(event, '${id || ''}')" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pilih Account</label>
+                            <select id="opp_accountId" onchange="updateAccountPicsInModal()" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="">-- Pilih Account --</option>
+                                ${db.accounts.map(a => `<option value="${a.id}" ${opp.accountId===a.id?'selected':''}>${a.name}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pilih PIC / Contact (Wajib dari Account)</label>
+                            <select id="opp_picId" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="">-- Pilih Account Dahulu --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Opportunity Name</label>
+                            <input type="text" id="opp_name" value="${opp.name}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Jenis Opportunity</label>
+                            <select id="opp_type" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                ${['Sales','Content Collaboration','Digital Campaign','Partnership','Sponsorship','Affiliate','Influencer','Event','Media','Strategic Partnership','Other'].map(t => `
+                                    <option value="${t}" ${opp.type===t?'selected':''}>${t}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 bg-slate-50 p-3 rounded-lg border">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 uppercase mb-1">Commercial Value (Rp)</label>
+                            <input type="number" id="opp_commercialValue" value="${opp.commercialValue}" class="w-full border border-slate-300 rounded-lg px-2 py-1 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 uppercase mb-1">Audience Reach (Est)</label>
+                            <input type="number" id="opp_audienceReach" value="${opp.audienceReach}" class="w-full border border-slate-300 rounded-lg px-2 py-1 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 uppercase mb-1">Brand Exposure (0-100)</label>
+                            <input type="number" id="opp_brandExposure" value="${opp.brandExposure}" min="0" max="100" class="w-full border border-slate-300 rounded-lg px-2 py-1 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 bg-slate-50 p-3 rounded-lg border">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 uppercase mb-1">Relationship Value (0-100)</label>
+                            <input type="number" id="opp_relationshipValue" value="${opp.relationshipValue}" min="0" max="100" class="w-full border border-slate-300 rounded-lg px-2 py-1 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 uppercase mb-1">Strategic Value (0-100)</label>
+                            <input type="number" id="opp_strategicValue" value="${opp.strategicValue}" min="0" max="100" class="w-full border border-slate-300 rounded-lg px-2 py-1 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-700 uppercase mb-1">Probability (%)</label>
+                            <input type="number" id="opp_probability" value="${opp.probability}" min="0" max="100" class="w-full border border-slate-300 rounded-lg px-2 py-1 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-xs">
+                        <label class="flex items-center space-x-2 bg-slate-50 p-2 rounded border"><input type="checkbox" id="opp_decisionMaker" ${opp.decisionMaker?'checked':''}><span>Decision Maker</span></label>
+                        <label class="flex items-center space-x-2 bg-slate-50 p-2 rounded border"><input type="checkbox" id="opp_budgetConfirmation" ${opp.budgetConfirmation?'checked':''}><span>Budget Confirmed</span></label>
+                        <label class="flex items-center space-x-2 bg-slate-50 p-2 rounded border"><input type="checkbox" id="opp_needConfirmation" ${opp.needConfirmation?'checked':''}><span>Need Confirmed</span></label>
+                        <label class="flex items-center space-x-2 bg-slate-50 p-2 rounded border"><input type="checkbox" id="opp_timingConfirmation" ${opp.timingConfirmation?'checked':''}><span>Timing Confirmed</span></label>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Competitor</label>
+                            <input type="text" id="opp_competitor" value="${opp.competitor}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Competitive Position</label>
+                            <select id="opp_competitivePosition" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="Strong" ${opp.competitivePosition==='Strong'?'selected':''}>Strong</option>
+                                <option value="Neutral" ${opp.competitivePosition==='Neutral'?'selected':''}>Neutral</option>
+                                <option value="Lagging" ${opp.competitivePosition==='Lagging'?'selected':''}>Lagging</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Relationship Strength</label>
+                            <select id="opp_relationshipStrength" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="High" ${opp.relationshipStrength==='High'?'selected':''}>High</option>
+                                <option value="Medium" ${opp.relationshipStrength==='Medium'?'selected':''}>Medium</option>
+                                <option value="Low" ${opp.relationshipStrength==='Low'?'selected':''}>Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Expected Close Date</label>
+                            <input type="date" id="opp_expectedCloseDate" value="${opp.expectedCloseDate}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pipeline Stage</label>
+                            <select id="opp_stage" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                ${['New Opportunity','Contact','Meeting','Proposal','Negotiation','Won','Lost'].map(s => `
+                                    <option value="${s}" ${opp.stage===s?'selected':''}>${s}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+                            <select id="opp_status" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="Active" ${opp.status==='Active'?'selected':''}>Active</option>
+                                <option value="Stalled" ${opp.status==='Stalled'?'selected':''}>Stalled</option>
+                                <option value="Closed Won" ${opp.status==='Closed Won'?'selected':''}>Closed Won</option>
+                                <option value="Closed Lost" ${opp.status==='Closed Lost'?'selected':''}>Closed Lost</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Next Best Action</label>
+                        <input type="text" id="opp_nextAction" value="${opp.nextAction}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none" placeholder="Langkah selanjutnya...">
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan Opportunity</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+            if (opp.accountId) {
+                updateAccountPicsInModal();
+                document.getElementById('opp_picId').value = opp.picId;
+            }
+        }
+
+        function saveOpportunity(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'opp_' + Math.random().toString(36).substr(2, 9),
+                accountId: document.getElementById('opp_accountId').value,
+                picId: document.getElementById('opp_picId').value,
+                name: document.getElementById('opp_name').value,
+                type: document.getElementById('opp_type').value,
+                commercialValue: parseFloat(document.getElementById('opp_commercialValue').value) || 0,
+                audienceReach: parseFloat(document.getElementById('opp_audienceReach').value) || 0,
+                brandExposure: parseFloat(document.getElementById('opp_brandExposure').value) || 0,
+                relationshipValue: parseFloat(document.getElementById('opp_relationshipValue').value) || 0,
+                strategicValue: parseFloat(document.getElementById('opp_strategicValue').value) || 0,
+                decisionMaker: document.getElementById('opp_decisionMaker').checked,
+                budgetConfirmation: document.getElementById('opp_budgetConfirmation').checked,
+                needConfirmation: document.getElementById('opp_needConfirmation').checked,
+                timingConfirmation: document.getElementById('opp_timingConfirmation').checked,
+                competitor: document.getElementById('opp_competitor').value,
+                competitivePosition: document.getElementById('opp_competitivePosition').value,
+                relationshipStrength: document.getElementById('opp_relationshipStrength').value,
+                expectedCloseDate: document.getElementById('opp_expectedCloseDate').value,
+                nextAction: document.getElementById('opp_nextAction').value,
+                probability: parseFloat(document.getElementById('opp_probability').value) || 0,
+                stage: document.getElementById('opp_stage').value,
+                status: document.getElementById('opp_status').value
+            };
+            if(id) {
+                const idx = db.opportunities.findIndex(x => x.id === id);
+                if(idx !== -1) db.opportunities[idx] = data;
+                logAudit('UPDATE', 'Opportunity', `Memperbarui opportunity: ${data.name} (Stage: ${data.stage})`);
+            } else {
+                db.opportunities.unshift(data);
+                logAudit('CREATE', 'Opportunity', `Menambahkan opportunity baru: ${data.name}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editOpportunity(id) { openOpportunityModal(id); }
+        function deleteOpportunity(id) {
+            if(confirm('Hapus opportunity ini?')) {
+                const db = getDB();
+                db.opportunities = db.opportunities.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'Opportunity', `Menghapus opportunity ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        // --- PIPELINE MODULE ---
+        function renderPipeline() {
+            const db = getDB();
+            const stages = ['New Opportunity', 'Contact', 'Meeting', 'Proposal', 'Negotiation', 'Won', 'Lost'];
+
+            return `
+                <div class="space-y-6">
+                    <h3 class="font-bold text-slate-800 text-lg">Sales & Exposure Pipeline Board</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-7 gap-4 overflow-x-auto pb-4">
+                        ${stages.map(stage => {
+                            const oppsInStage = db.opportunities.filter(o => o.stage === stage);
+                            const stageVal = oppsInStage.reduce((acc, cur) => acc + (parseFloat(cur.commercialValue) || 0), 0);
+                            const weightedStageVal = oppsInStage.reduce((acc, cur) => acc + calculateOppMetrics(cur).weightedValue, 0);
+
+                            return `
+                                <div class="bg-white rounded-xl border border-slate-200 p-3 flex flex-col min-w-[220px]">
+                                    <div class="border-b pb-2 mb-3">
+                                        <div class="font-bold text-slate-800 text-sm flex justify-between items-center">
+                                            <span>${stage}</span>
+                                            <span class="bg-brand-50 text-brand-700 text-xs px-2 py-0.5 rounded-full font-bold">${oppsInStage.length}</span>
+                                        </div>
+                                        <div class="text-[11px] text-slate-500 mt-1">Val: Rp ${stageVal.toLocaleString('id-ID')}</div>
+                                        <div class="text-[10px] text-indigo-600 font-semibold">Weighted: Rp ${Math.round(weightedStageVal).toLocaleString('id-ID')}</div>
+                                    </div>
+                                    <div class="space-y-3 flex-1 overflow-y-auto max-h-[600px]">
+                                        ${oppsInStage.length === 0 ? `<div class="text-slate-300 text-xs text-center py-6">Kosong</div>` : oppsInStage.map(opp => {
+                                            const m = calculateOppMetrics(opp);
+                                            return `
+                                                <div onclick="editOpportunity('${opp.id}')" class="bg-slate-50 border border-slate-200 hover:border-brand-500 cursor-pointer rounded-lg p-3 shadow-sm transition space-y-2">
+                                                    <div class="text-xs font-bold text-slate-800">${opp.name}</div>
+                                                    <div class="flex justify-between items-center text-[10px]">
+                                                        <span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 font-medium">${opp.type}</span>
+                                                        <span class="font-bold text-slate-600">Rp ${(parseFloat(opp.commercialValue)||0).toLocaleString('id-ID')}</span>
+                                                    </div>
+                                                    <div class="pt-2 border-t border-slate-200 flex justify-between items-center text-[10px]">
+                                                        <span class="px-2 py-0.5 rounded-full font-semibold bg-${m.healthColor}-100 text-${m.healthColor}-800">${m.health}</span>
+                                                        <span class="text-slate-500">Exp: ${m.exposureScore}</span>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- PROPOSALS MODULE ---
+        function renderProposals() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-lg">Proposals Management</h3>
+                        <button onclick="openProposalModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center"><i class="fa-solid fa-plus mr-2"></i> Tambah Proposal</button>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Proposal Title</th>
+                                    <th class="p-4">Opportunity</th>
+                                    <th class="p-4">Version</th>
+                                    <th class="p-4">Amount</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.proposals.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-sm">Belum ada proposal. Silakan tambahkan baru.</td></tr>` : db.proposals.map(prop => {
+                                    const opp = db.opportunities.find(o => o.id === prop.oppId);
+                                    return `
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-4 font-semibold text-slate-800">${prop.title}<br><span class="text-xs text-slate-400 font-normal">Date: ${prop.date}</span></td>
+                                            <td class="p-4 text-slate-600">${opp ? opp.name : '-'}</td>
+                                            <td class="p-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-mono">${prop.version}</span></td>
+                                            <td class="p-4 text-slate-600">Rp ${(parseFloat(prop.amount)||0).toLocaleString('id-ID')}</td>
+                                            <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700">${prop.status}</span></td>
+                                            <td class="p-4 text-right space-x-2">
+                                                <button onclick="editProposal('${prop.id}')" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                                <button onclick="deleteProposal('${prop.id}')" class="text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openProposalModal(id = null) {
+            const db = getDB();
+            let prop = { oppId: '', title: '', version: 'v1.0', amount: 0, status: 'Draft', date: new Date().toISOString().substring(0, 10) };
+            if (id) prop = db.proposals.find(x => x.id === id) || prop;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit Proposal' : 'Tambah Proposal Baru';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="saveProposal(event, '${id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pilih Opportunity</label>
+                        <select id="prop_oppId" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                            <option value="">-- Pilih Opportunity --</option>
+                            ${db.opportunities.map(o => `<option value="${o.id}" ${prop.oppId===o.id?'selected':''}>${o.name} (Rp ${(parseFloat(o.commercialValue)||0).toLocaleString('id-ID')})</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Proposal Title</label>
+                            <input type="text" id="prop_title" value="${prop.title}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Version</label>
+                            <input type="text" id="prop_version" value="${prop.version}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Amount (Rp)</label>
+                            <input type="number" id="prop_amount" value="${prop.amount}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+                            <select id="prop_status" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="Draft" ${prop.status==='Draft'?'selected':''}>Draft</option>
+                                <option value="Sent" ${prop.status==='Sent'?'selected':''}>Sent</option>
+                                <option value="Approved" ${prop.status==='Approved'?'selected':''}>Approved</option>
+                                <option value="Rejected" ${prop.status==='Rejected'?'selected':''}>Rejected</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Date</label>
+                            <input type="date" id="prop_date" value="${prop.date}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan Proposal</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+        }
+
+        function saveProposal(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'prop_' + Math.random().toString(36).substr(2, 9),
+                oppId: document.getElementById('prop_oppId').value,
+                title: document.getElementById('prop_title').value,
+                version: document.getElementById('prop_version').value,
+                amount: parseFloat(document.getElementById('prop_amount').value) || 0,
+                status: document.getElementById('prop_status').value,
+                date: document.getElementById('prop_date').value
+            };
+            if(id) {
+                const idx = db.proposals.findIndex(x => x.id === id);
+                if(idx !== -1) db.proposals[idx] = data;
+                logAudit('UPDATE', 'Proposals', `Memperbarui proposal: ${data.title}`);
+            } else {
+                db.proposals.unshift(data);
+                logAudit('CREATE', 'Proposals', `Menambahkan proposal baru: ${data.title}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editProposal(id) { openProposalModal(id); }
+        function deleteProposal(id) {
+            if(confirm('Hapus proposal ini?')) {
+                const db = getDB();
+                db.proposals = db.proposals.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'Proposals', `Menghapus proposal ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        // --- ACTIVITIES MODULE ---
+        function renderActivities() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-lg">Activities & Tasks</h3>
+                        <button onclick="openActivityModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center"><i class="fa-solid fa-plus mr-2"></i> Tambah Activity</button>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Subject</th>
+                                    <th class="p-4">Type</th>
+                                    <th class="p-4">Opportunity</th>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.activities.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-sm">Belum ada activity. Silakan tambahkan baru.</td></tr>` : db.activities.map(act => {
+                                    const opp = db.opportunities.find(o => o.id === act.oppId);
+                                    return `
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-4 font-semibold text-slate-800">${act.subject}<br><span class="text-xs text-slate-400 font-normal">${act.notes}</span></td>
+                                            <td class="p-4"><span class="px-2 py-0.5 rounded text-xs bg-brand-50 text-brand-700 font-medium">${act.type}</span></td>
+                                            <td class="p-4 text-slate-600">${opp ? opp.name : '-'}</td>
+                                            <td class="p-4 text-slate-600">${act.date}</td>
+                                            <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">${act.status}</span></td>
+                                            <td class="p-4 text-right space-x-2">
+                                                <button onclick="editActivity('${act.id}')" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-pen"></i></button>
+                                                <button onclick="deleteActivity('${act.id}')" class="text-slate-500 hover:text-rose-600"><i class="fa-solid fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openActivityModal(id = null) {
+            const db = getDB();
+            let act = { oppId: '', type: 'Meeting', subject: '', date: new Date().toISOString().substring(0, 10), status: 'Scheduled', notes: '' };
+            if (id) act = db.activities.find(x => x.id === id) || act;
+
+            document.getElementById('modal-title').innerText = id ? 'Edit Activity' : 'Tambah Activity Baru';
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="saveActivity(event, '${id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pilih Opportunity</label>
+                        <select id="act_oppId" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                            <option value="">-- Pilih Opportunity --</option>
+                            ${db.opportunities.map(o => `<option value="${o.id}" ${act.oppId===o.id?'selected':''}>${o.name}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Subject</label>
+                            <input type="text" id="act_subject" value="${act.subject}" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Type</label>
+                            <select id="act_type" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="Meeting" ${act.type==='Meeting'?'selected':''}>Meeting</option>
+                                <option value="Call" ${act.type==='Call'?'selected':''}>Call</option>
+                                <option value="Email" ${act.type==='Email'?'selected':''}>Email</option>
+                                <option value="Task" ${act.type==='Task'?'selected':''}>Task</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Date</label>
+                            <input type="date" id="act_date" value="${act.date}" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+                            <select id="act_status" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                                <option value="Scheduled" ${act.status==='Scheduled'?'selected':''}>Scheduled</option>
+                                <option value="Completed" ${act.status==='Completed'?'selected':''}>Completed</option>
+                                <option value="Cancelled" ${act.status==='Cancelled'?'selected':''}>Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Notes</label>
+                        <textarea id="act_notes" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none">${act.notes}</textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-lg text-sm text-slate-600 hover:bg-slate-100">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-semibold hover:bg-brand-700">Simpan Activity</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('global-modal').classList.remove('hidden');
+        }
+
+        function saveActivity(e, id) {
+            e.preventDefault();
+            const db = getDB();
+            const data = {
+                id: id ? id : 'act_' + Math.random().toString(36).substr(2, 9),
+                oppId: document.getElementById('act_oppId').value,
+                subject: document.getElementById('act_subject').value,
+                type: document.getElementById('act_type').value,
+                date: document.getElementById('act_date').value,
+                status: document.getElementById('act_status').value,
+                notes: document.getElementById('act_notes').value
+            };
+            if(id) {
+                const idx = db.activities.findIndex(x => x.id === id);
+                if(idx !== -1) db.activities[idx] = data;
+                logAudit('UPDATE', 'Activities', `Memperbarui activity: ${data.subject}`);
+            } else {
+                db.activities.unshift(data);
+                logAudit('CREATE', 'Activities', `Menambahkan activity baru: ${data.subject}`);
+            }
+            saveDB(db);
+            closeModal();
+            renderContent();
+        }
+
+        function editActivity(id) { openActivityModal(id); }
+        function deleteActivity(id) {
+            if(confirm('Hapus activity ini?')) {
+                const db = getDB();
+                db.activities = db.activities.filter(x => x.id !== id);
+                saveDB(db);
+                logAudit('DELETE', 'Activities', `Menghapus activity ID: ${id}`);
+                renderContent();
+            }
+        }
+
+        // --- EXPOSURE INTELLIGENCE MODULE ---
+        function renderExposure() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-lg">Exposure & Digital Value Intelligence</h3>
+                        <p class="text-slate-500 text-xs mt-1">Analisis mendalam mengenai Exposure Risk, Audience Reach, dan Brand Value untuk seluruh jenis opportunity.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Opportunity & Type</th>
+                                    <th class="p-4">Commercial</th>
+                                    <th class="p-4">Audience Reach</th>
+                                    <th class="p-4">Brand Exposure</th>
+                                    <th class="p-4">Strategic Value</th>
+                                    <th class="p-4">Exposure Score</th>
+                                    <th class="p-4">Next Best Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.opportunities.length === 0 ? `<tr><td colspan="7" class="p-8 text-center text-slate-400 text-sm">Belum ada data exposure intelligence. Silakan tambahkan opportunity terlebih dahulu.</td></tr>` : db.opportunities.map(opp => {
+                                    const m = calculateOppMetrics(opp);
+                                    return `
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-4">
+                                                <div class="font-semibold text-slate-800">${opp.name}</div>
+                                                <span class="px-2 py-0.5 rounded text-[10px] bg-brand-50 text-brand-700 font-medium">${opp.type}</span>
+                                            </td>
+                                            <td class="p-4 text-slate-600">Rp ${(parseFloat(opp.commercialValue)||0).toLocaleString('id-ID')}</td>
+                                            <td class="p-4 text-slate-600 font-mono">${(parseFloat(opp.audienceReach)||0).toLocaleString('id-ID')}</td>
+                                            <td class="p-4 text-slate-600">${opp.brandExposure} / 100</td>
+                                            <td class="p-4 text-slate-600">${opp.strategicValue} / 100</td>
+                                            <td class="p-4">
+                                                <div class="font-bold text-indigo-600">${m.exposureScore} / 100</div>
+                                                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-${m.healthColor}-100 text-${m.healthColor}-800">${m.health}</span>
+                                            </td>
+                                            <td class="p-4 text-xs text-slate-600 max-w-xs font-medium">${m.nba}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- DIGITAL INTELLIGENCE MODULE ---
+        function renderDigital() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-lg">Digital Intelligence Signal Matrix</h3>
+                        <p class="text-slate-500 text-xs mt-1">Realtime signal monitoring berdasarkan kelengkapan BANT, relasi, dan posisi kompetitif.</p>
+                    </div>
+                    ${db.opportunities.length === 0 ? `<div class="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-400 text-sm">Belum ada data opportunity untuk dianalisis.</div>` : `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${db.opportunities.map(opp => {
+                            const m = calculateOppMetrics(opp);
+                            const acc = db.accounts.find(a => a.id === opp.accountId);
+                            return `
+                                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <span class="px-2 py-0.5 rounded text-[10px] bg-indigo-50 text-indigo-700 font-semibold uppercase">${opp.type}</span>
+                                            <h4 class="font-bold text-slate-800 text-base mt-1">${opp.name}</h4>
+                                            <div class="text-xs text-slate-500">${acc ? acc.name : '-'}</div>
+                                        </div>
+                                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-${m.healthColor}-100 text-${m.healthColor}-800">${m.health}</span>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                                        <div class="p-2 rounded bg-slate-50 border">
+                                            <div class="text-[10px] text-slate-400 uppercase font-bold">Decision Maker</div>
+                                            <div class="mt-1 font-bold ${opp.decisionMaker ? 'text-emerald-600' : 'text-rose-600'}">${opp.decisionMaker ? 'Yes' : 'No'}</div>
+                                        </div>
+                                        <div class="p-2 rounded bg-slate-50 border">
+                                            <div class="text-[10px] text-slate-400 uppercase font-bold">Budget</div>
+                                            <div class="mt-1 font-bold ${opp.budgetConfirmation ? 'text-emerald-600' : 'text-rose-600'}">${opp.budgetConfirmation ? 'Yes' : 'No'}</div>
+                                        </div>
+                                        <div class="p-2 rounded bg-slate-50 border">
+                                            <div class="text-[10px] text-slate-400 uppercase font-bold">Need</div>
+                                            <div class="mt-1 font-bold ${opp.needConfirmation ? 'text-emerald-600' : 'text-rose-600'}">${opp.needConfirmation ? 'Yes' : 'No'}</div>
+                                        </div>
+                                        <div class="p-2 rounded bg-slate-50 border">
+                                            <div class="text-[10px] text-slate-400 uppercase font-bold">Timing</div>
+                                            <div class="mt-1 font-bold ${opp.timingConfirmation ? 'text-emerald-600' : 'text-rose-600'}">${opp.timingConfirmation ? 'Yes' : 'No'}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-1 pt-2 border-t">
+                                        <div class="text-xs font-bold text-slate-700 uppercase">Signal Analysis:</div>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            ${m.signals.map(s => `
+                                                <span class="px-2 py-0.5 rounded text-[11px] font-medium ${s.type==='danger'?'bg-rose-100 text-rose-800':(s.type==='warning'?'bg-amber-100 text-amber-800':'bg-emerald-100 text-emerald-800')}">${s.text}</span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-3 text-xs">
+                                        <span class="font-bold text-indigo-900 block mb-0.5">Next Best Action:</span>
+                                        <span class="text-indigo-800">${m.nba}</span>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>`}
+                </div>
+            `;
+        }
+
+        // --- AUDIT TRAIL MODULE ---
+        function renderAuditTrail() {
+            const db = getDB();
+            return `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-lg">System Audit Trail</h3>
+                        <p class="text-slate-500 text-xs mt-1">Pencatatan seluruh perubahan data secara otomatis.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th class="p-4">Timestamp</th>
+                                    <th class="p-4">User</th>
+                                    <th class="p-4">Action</th>
+                                    <th class="p-4">Module</th>
+                                    <th class="p-4">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                ${db.auditTrail.length === 0 ? `<tr><td colspan="5" class="p-8 text-center text-slate-400 text-sm">Belum ada log audit tercatat.</td></tr>` : db.auditTrail.map(a => `
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-4 text-xs font-mono text-slate-500">${a.timestamp}</td>
+                                        <td class="p-4 font-semibold text-slate-800">${a.user}</td>
+                                        <td class="p-4"><span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">${a.action}</span></td>
+                                        <td class="p-4 text-slate-600 font-medium">${a.module}</td>
+                                        <td class="p-4 text-slate-700">${a.description}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- MODAL UTILITIES ---
+        function closeModal() {
+            document.getElementById('global-modal').classList.add('hidden');
+        }
+
+        // --- INITIAL BOOTSTRAP ---
+        window.addEventListener('DOMContentLoaded', () => {
+            getDB();
+            renderContent();
+        });
+    </script>
+</body>
+</html>
